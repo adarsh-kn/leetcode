@@ -31,5 +31,5 @@ jobs:
           source: leetcode
           # Either "us" (the default) for leetcode.com, or "cn" for leetcode-cn.com
           # instance: us
-          instance: "https://leetcode.com/"
+          # instance: "https://leetcode.com/"
           username: "adarsh__kn" # As is

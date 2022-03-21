@@ -1,0 +1,35 @@
+name: "Sync LeetCode"
+
+on:
+  # Allow manually triggering in repos' Action tab
+  workflow_dispatch:
+
+  # Schedule the workflow to run every eight hours
+  # 12 is randomly chosen to avoid collisions or jam
+  schedule:
+    - cron: "12 */8 * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # Let the checkout action to set up the repo
+      - uses: actions/checkout@v2
+        with:
+          # Commit history would be useful for incremental synchronization.
+          fetch-depth: 0
+
+      # Optionally, specify a timezone, which will be used in GIT_AUTHOR_DATE.
+      # But it does not make much sense as most sources groups activities by days
+      # without considering the timezone.
+      - uses: szenius/set-timezone-action@v1.0
+        with:
+          timezoneLinux: "Asia/Shanghai"
+
+      - uses: gowee/sync-contrib-calendar-action@0.1-alpha
+        with:
+          source: leetcode
+          # Either "us" (the default) for leetcode.com, or "cn" for leetcode-cn.com
+          # instance: us
+          instance: "https://leetcode.com/"
+          username: "adarsh__kn" # As is
